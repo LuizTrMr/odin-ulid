@@ -167,6 +167,16 @@ run_tests :: proc() {
 		assert( ulid2_n+1 != ulid3_n ) // Generated in different milliseconds
 	}
 
+	{ // Transition from non Monotonic to Monotonic
+		ulid1, _ := generate_ulid()
+		ulid2, _ := generate_monotonic_ulid()
+
+		ulid1_n, _ := decode(ulid1)
+		ulid2_n, _ := decode(ulid2)
+
+		assert( ulid1_n+1 == ulid2_n )
+	}
+
 	fmt.println("--- All tests passed ---")
 }
 
